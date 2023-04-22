@@ -29,9 +29,13 @@ Et bien évidemment se déconnecter.
 
 ### Technologies utilisées
 Pour ce projet, réalisé sous NodeJS, nous avons utilisé les technologies suivantes :
+<ul>
 - NodeJS, Express, MongoDB, Https, PassportJs...
+</ul>
 Pour la conteneurisation, nous avons utilisés :
+<ul>
 - Docker, Docker Compose, Kubernetes & Minikube
+</ul>
 
 ### Stade de développement
 A ce jour, l'application peut encore être améliorée avec par exemple l'ajout d'images lors d'une enchère, l'actualisation de l'application en temps réel...
