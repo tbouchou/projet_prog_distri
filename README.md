@@ -43,7 +43,7 @@ A ce jour, l'application peut encore être améliorée avec par exemple l'ajout 
 ### Processus d'installation
 Pour exécuter cette application, vous avez 2 moyens : 
 - (La + simple) Utiliser le docker-compose en vous plaçant dans le répertoire principal et en exécutant la commande : docker-compose up
-- Via minikube et en appliquant les déploiements (dossier deployments) : kubectl apply -f deployments
+- Via minikube et kubernetes en appliquant les déploiements (dossier deployments)
 
 ### Retour d'expérience
 Ce projet nous a particulièrement plu, notamment car des nouvelles notions de programmation ont été abordées. Malgré quelques difficultés, nous sommes fiers d'avoir fourni un projet fonctionnel répondant à la majeure partie des contraintes exigées.
