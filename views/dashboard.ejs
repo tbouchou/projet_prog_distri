@@ -1,0 +1,165 @@
+<h1>-</h1>
+<h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Welcome <%= user.name %>
+</p>
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="dashboard">MIAGE AUCTION</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="dashboard">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/auction">Auction</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <a href="/users/logout" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
+      </form>
+    </div>
+  </nav>
+
+
+<div class="mt-5"></div>
+<section class="py-5 bg-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow bg-white">
+                                <p id="errorBid" style="text-align: center;color:red;"></p>
+                                <script>
+                                    document.getElementById("errorBid").hidden = true;
+                                    const urlParams = new URLSearchParams(window.location.search);
+                                    const myParam = urlParams.get('error');
+                                    const myParam2 = urlParams.get('max');
+                                    if (myParam == "badAmount") {
+                                        document.getElementById("errorBid").hidden = false;
+                                        document.getElementById("errorBid").innerHTML = "<p>Surrenchère trop basse ! Dernière surrenchère : "+myParam2+",00€<p>"
+                                    }
+                                </script>
+                                <% let liste=[]%>   
+                                <% var bidsX = bids %>
+                                <%products.forEach(function(product) { %>
+                                    <% var end = product.end%>
+                                    <% var mongoDate = product.createdAt; %>
+                                    <%
+                                    var date = new Date(mongoDate);
+                                    var hour = (date.getHours()<10?'0':'') + date.getHours();
+                                    var min = (date.getMinutes()<10?'0':'') + date.getMinutes();
+                                    var newDate = date.toLocaleDateString("fr")  
+                                    %>
+                                    
+                                    <% 
+                                     var message = "There has been no biders !"
+                                     if (bidsX.length!==0) {
+                                         var productId = product._id
+                                         bidsX.forEach(function(bid) {
+                                                var pId = bid.pid
+                                                if (productId==pId)
+                                                    liste.push(bid.bidamount)
+                                         });
+                                         if (liste.length!=0){
+                                            var max = Math.max.apply(null,liste)
+                                            message = "The best bid amount is : "+max+",00€"
+
+                                         }
+                                     }
+                                    %> 
+                                    <div class="row  text-center">
+                                        <div class="col-md-12">
+                                            <div class="card shadow">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-3 text-center border-right">
+                                                            <i class="fa fa-car fa-2x text-warning "></i></br>
+                                                            <h4 class="text-uppercase pt-1" id="timeId">_ _ : _ _<!--<%=product.time%>--></h4>
+                                                            <kbd class="text-white mb-4"><%=newDate%> <%=hour%>:<%=min%></kbd>
+                                                        </div>
+                                                        <div class="col-md-6 border-right">
+                                                            <h5 class="text-uppercase text-primary ">
+                                                                <%=product.pname%>
+                                                            </h5>
+                                                            <p>
+                                                                <%=product.pdesc%>
+                                                            </p>
+                                                            <hr>
+                                                            <button type="button" onclick="alert('<%=message%>');"
+                                                                class="btn btn-outline-primary btn-sm">Best
+                                                                Bid</button>
+                                                            <hr>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <% if (product.end==false) { %>
+                                                                <% if (product.author==user._id) { %>
+                                                                    <small>
+                                                                        This is your product, you cannot bid on it !
+                                                                    </small>
+                                                                <%} else{%>
+                                                                <form action="users/bid/<%=product._id%>" method="post">
+                                                                    <div class="form-group border border-warning">
+                                                                        <input name="newAmount" type="number"
+                                                                            class="form-control" placeholder="Enter Amount"
+                                                                            min=<%=product.amount+1%> required>
+                                                                    </div>
+                                                                    <small>
+                                                                        <%=product.amount%>,00 €
+                                                                    </small>
+                                                                    <div class="sub-row">
+                                                                        <button type="submit" class="btn btn-success">
+                                                                            Update Record</button>
+                                                                </form>
+                                                                <%}%>
+                                                            <%} else {%>
+                                                                <small>
+                                                                    Sadly... This Auction as ended
+                                                                </small>
+                                                            <%}%>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <%});%>
+                                        </div>
+
+                                    </div>
+                                    
+
+                                
+
+
+                                </div>
+
+                        </div>
+
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+</section>
+
+<footer class="bg-light text-center text-lg-start fixed-bottom">
+    <!-- Copyright -->
+    <div class="text-center p-3 bg-light">
+      © 2022 Copyright:
+      <a class="text-dark" href="#">Master MIAGE - FA </a>
+    </div>
+    <!-- Copyright -->
+  </footer>

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auction
+  template:
+    metadata:
+      labels:
+        app: auction
+    spec:
+      containers:
+      - name: app
+        image: projet-prog-dist-app
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGO_HOST
+          value: mongo

@@ -1,0 +1,39 @@
+{
+  "name": "projet-site-encheres",
+  "version": "1.0.0",
+  "description": "Node.js auction application",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/tbouchou/projet-site-encheres.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/tbouchou/projet-site-encheres/issues"
+  },
+  "homepage": "https://gitlab.com/tbouchou/projet-site-encheres#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.15.6",
+    "formidable": "^2.0.1",
+    "fs": "^0.0.1-security",
+    "helmet": "^5.0.2",
+    "moment": "^2.29.2",
+    "mongoose": "^5.7.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}

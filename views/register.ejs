@@ -1,0 +1,18 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+<link href="/stylesheets/login.css" rel="stylesheet" type="text/css">
+
+<div class="wrapper">
+  <div class="logo"> <img src="/images/marteau.png" alt=""> </div>
+  <div class="text-center mt-4 name"> Sign Up </div>
+  <% include ./partials/messages %>
+  <form class="p-3 mt-3" action="/users/register" method="POST">
+    <div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <input type="text" name="name" id="name" placeholder="Enter Name"> </div>
+      <div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <input type="email" name="email" id="email" placeholder="Email" value="<%= typeof email != 'undefined' ? email : '' %>"> </div>
+      <div class="form-field d-flex align-items-center"> <span class="fas fa-key"></span> <input type="password" name="password" id="password" placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>"> </div> 
+      <div class="form-field d-flex align-items-center"> <span class="fas fa-key"></span> <input type="password" name="password2" id="password2" placeholder="Confirm Password" value="<%= typeof password2 != 'undefined' ? password2 : '' %>"> </div> 
+      <button type="submit" class="btn mt-3">Login</button>
+  </form>
+  <div class="text-center fs-6"> Have An Account? <a href="/users/login">Login</a> </div>
+</div>
